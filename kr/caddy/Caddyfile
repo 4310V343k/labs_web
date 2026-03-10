@@ -1,0 +1,22 @@
+{
+    email {$ACME_EMAIL}
+}
+
+*.{$WILDCARD_DOMAIN} {
+    tls {
+        dns cloudflare {$CLOUDFLARE_API_TOKEN}
+    }
+
+    # Route requests on $ACTUAL_DOMAIN
+    @app host {$ACTUAL_DOMAIN}
+    handle @app {
+        handle /api/* {
+            reverse_proxy backend:{$BACKEND_PORT}
+        }
+
+        # TODO
+        respond "Coming soon" 200
+    }
+
+    respond 404
+}

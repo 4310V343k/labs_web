@@ -1,0 +1,21 @@
+{
+  "name": "marathon-factions-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "seed": "node src/database/seed.js",
+    "init-db": "node src/database/init.js"
+  },
+  "author": "y7o4ka",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "pg-pool": "^3.6.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1"
+  }
+}
