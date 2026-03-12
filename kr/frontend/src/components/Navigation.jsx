@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
 
 export const Navigation = () => {
   const location = useLocation();
@@ -13,7 +13,9 @@ export const Navigation = () => {
             </div>
             <div>
               <h1 className="text-lg font-bold text-marathon-light">NEXUS</h1>
-              <p className="text-xs text-marathon-light text-opacity-60">Faction Directory</p>
+              <p className="text-xs text-marathon-light text-opacity-60">
+                Runner Directory
+              </p>
             </div>
           </Link>
 
@@ -21,9 +23,9 @@ export const Navigation = () => {
             <Link
               to="/"
               className={`font-semibold transition-colors ${
-                location.pathname === '/' 
-                  ? 'text-faction-uesc border-b-2 border-faction-uesc' 
-                  : 'text-marathon-light hover:text-faction-uesc'
+                location.pathname === "/"
+                  ? "text-faction-uesc border-b-2 border-faction-uesc"
+                  : "text-marathon-light hover:text-faction-uesc"
               }`}
             >
               Factions
@@ -31,9 +33,9 @@ export const Navigation = () => {
             <Link
               to="/factions/new"
               className={`font-semibold transition-colors ${
-                location.pathname === '/factions/new' 
-                  ? 'text-faction-cyac border-b-2 border-faction-cyac' 
-                  : 'text-marathon-light hover:text-faction-cyac'
+                location.pathname === "/factions/new"
+                  ? "text-faction-cyac border-b-2 border-faction-cyac"
+                  : "text-marathon-light hover:text-faction-cyac"
               }`}
             >
               New Faction
