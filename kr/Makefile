@@ -35,6 +35,12 @@ ps: ## Show running containers
 build-prod: ## Rebuild production images (no cache)
 	$(PROD_COMPOSE) build --no-cache
 
+init-db: ## Initialize the database (run once after up)
+	$(PROD_COMPOSE) exec backend npm run init-db
+
+seed-db: ## Seed the database with sample data
+	$(PROD_COMPOSE) exec backend npm run seed
+
 # --- Development ------------------------------------------------------------
 
 dev: ## Start dev stack (detached)
@@ -51,6 +57,12 @@ dev-logs: ## Tail dev logs (all services, or: make dev-logs s=backend)
 
 build-dev: ## Rebuild dev images (no cache)
 	$(DEV_COMPOSE) build --no-cache
+
+init-db-dev: ## Initialize the database (run once after up)
+	$(DEV_COMPOSE) exec backend npm run init-db
+
+seed-db-dev: ## Seed the database with sample data
+	$(DEV_COMPOSE) exec backend npm run seed
 
 build: build-prod build-dev ## Rebuild all images
 
