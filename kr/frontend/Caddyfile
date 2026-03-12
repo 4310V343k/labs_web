@@ -1,0 +1,6 @@
+:80 {
+    root * /srv
+    # SPA fallback: unknown paths serve index.html for client-side routing
+    try_files {path} /index.html
+    file_server
+}

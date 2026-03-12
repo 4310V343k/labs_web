@@ -6,8 +6,8 @@ NODE_IMAGE    = node:22-alpine
         up down restart logs ps \
         dev dev-watch dev-down dev-logs \
         build build-prod build-dev \
-        lock \
-        db-shell backend-shell
+        lock lock-backend lock-frontend \
+        db-shell backend-shell frontend-shell
 
 # --- Default ----------------------------------------------------------------
 
@@ -56,9 +56,18 @@ build: build-prod build-dev ## Rebuild all images
 
 # --- Dependencies -----------------------------------------------------------
 
-lock: ## Regenerate backend/package-lock.json via a throwaway container
+lock: lock-backend lock-frontend ## Regenerate all package-lock.json files
+
+lock-backend: ## Regenerate backend/package-lock.json via a throwaway container
 	docker run --rm \
 		-v $(CURDIR)/backend:/app \
+		-w /app \
+		$(NODE_IMAGE) \
+		npm install --package-lock-only
+
+lock-frontend: ## Regenerate frontend/package-lock.json via a throwaway container
+	docker run --rm \
+		-v $(CURDIR)/frontend:/app \
 		-w /app \
 		$(NODE_IMAGE) \
 		npm install --package-lock-only
@@ -70,3 +79,6 @@ db-shell: ## Open psql inside the running db container
 
 backend-shell: ## Open a shell inside the running backend container
 	$(DEV_COMPOSE) exec backend sh
+
+frontend-shell: ## Open a shell inside the running frontend container
+	$(DEV_COMPOSE) exec frontend sh

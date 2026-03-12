@@ -35,6 +35,15 @@ services:
     expose:
       - "5000"
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: production
+    restart: unless-stopped
+    expose:
+      - "80"
+
   caddy:
     build:
       context: ./caddy
@@ -42,6 +51,7 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
+      - frontend
     environment:
       WILDCARD_DOMAIN: ${WILDCARD_DOMAIN}
       ACTUAL_DOMAIN: ${ACTUAL_DOMAIN}

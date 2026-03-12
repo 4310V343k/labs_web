@@ -14,8 +14,7 @@
             reverse_proxy backend:{$BACKEND_PORT}
         }
 
-        # TODO
-        respond "Coming soon" 200
+        reverse_proxy frontend:80
     }
 
     respond 404

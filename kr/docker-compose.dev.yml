@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:16-alpine
+    image: postgres:18-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${DB_USER:-app}
@@ -27,15 +27,15 @@ services:
         condition: service_healthy
     environment:
       NODE_ENV: development
-      PORT: ${PORT:-5000}
-      DB_USER: ${DB_USER:-app}
-      DB_PASSWORD: ${DB_PASSWORD:-app_password}
-      DB_NAME: ${DB_NAME:-app_db}
+      PORT: 5000
+      DB_USER: app
+      DB_PASSWORD: app_password
+      DB_NAME: app_db
       DB_HOST: db
       DB_PORT: 5432
-      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:5173}
     ports:
-      - "${PORT:-5000}:${PORT:-5000}"
+      - "${BACKEND_LOCALHOST_PORT:-5000}:5000"
     # Native Compose watch: syncs ./backend/src into the container and restarts
     # the process on any change. Run with: docker compose -f docker-compose.dev.yml watch
     develop:
@@ -45,6 +45,35 @@ services:
           target: /app/src
         - action: rebuild
           path: ./backend/package.json
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    restart: unless-stopped
+    environment:
+      VITE_API_URL: ${VITE_API_URL:-http://backend:5000}
+    ports:
+      - "${FRONTEND_LOCALHOST_PORT:-5173}:5173"
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend/src
+          target: /app/src
+        - action: sync
+          path: ./frontend/index.html
+          target: /app/index.html
+        - action: sync
+          path: ./frontend/tailwind.config.js
+          target: /app/tailwind.config.js
+        - action: sync
+          path: ./frontend/postcss.config.js
+          target: /app/postcss.config.js
+        - action: rebuild
+          path: ./frontend/package.json
+        - action: rebuild
+          path: ./frontend/vite.config.js
 
 volumes:
   db_dev_data:
