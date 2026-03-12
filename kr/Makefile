@@ -1,5 +1,5 @@
-PROD_COMPOSE  = docker compose -f docker-compose.yml
-DEV_COMPOSE   = docker compose -f docker-compose.dev.yml
+PROD_COMPOSE  = docker compose -f docker-compose.yml --env-file .env.production
+DEV_COMPOSE   = docker compose -f docker-compose.dev.yml --env-file .env.development
 NODE_IMAGE    = node:22-alpine
 
 .PHONY: help \
@@ -18,7 +18,7 @@ help:
 # --- Production -------------------------------------------------------------
 
 up: ## Start production stack (detached)
-	$(PROD_COMPOSE) up -d
+	$(PROD_COMPOSE) up -d --build
 
 down: ## Stop production stack
 	$(PROD_COMPOSE) down
