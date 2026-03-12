@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { errorHandler } from './middleware/errorHandler.js';
-// import factionsRoutes from './routes/factions.js';
+import factionsRoutes from './routes/factions.js';
 
 dotenv.config();
 
@@ -29,8 +29,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-// !TODO
-// app.use('/api/factions', factionsRoutes);
+app.use('/api/factions', factionsRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
