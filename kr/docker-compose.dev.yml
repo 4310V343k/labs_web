@@ -70,6 +70,9 @@ services:
         - action: sync
           path: ./frontend/postcss.config.js
           target: /app/postcss.config.js
+        - action: sync
+          path: ./frontend/eslint.config.js
+          target: /app/eslint.config.js
         - action: rebuild
           path: ./frontend/package.json
         - action: rebuild
