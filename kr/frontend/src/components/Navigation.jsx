@@ -14,7 +14,7 @@ export const Navigation = () => {
             <div>
               <h1 className="text-lg font-bold text-marathon-light">NEXUS</h1>
               <p className="text-xs text-marathon-light text-opacity-60">
-                Runner Directory
+                Faction Directory
               </p>
             </div>
           </Link>

@@ -27,7 +27,7 @@ export const FactionCard = ({ faction, onDelete }) => {
       : faction.icon?.url;
 
   return (
-    <>
+    <Link to={`/factions/${faction.id}`} className="flex-1">
       <div
         className="bg-marathon-gray border-2 rounded-lg p-6 glow-faction transition-all duration-300 hover:shadow-lg h-full flex flex-col"
         style={{ borderColor: faction.color }}
@@ -62,27 +62,6 @@ export const FactionCard = ({ faction, onDelete }) => {
           className="h-1 rounded-full mb-4"
           style={{ backgroundColor: faction.color }}
         />
-
-        {/* Actions */}
-        <div className="flex gap-2">
-          <Link to={`/factions/${faction.id}`} className="flex-1">
-            <Button variant="secondary" className="w-full text-sm">
-              View
-            </Button>
-          </Link>
-          <Link to={`/factions/${faction.id}/edit`} className="flex-1">
-            <Button variant="secondary" className="w-full text-sm">
-              Edit
-            </Button>
-          </Link>
-          <Button
-            variant="danger"
-            className="flex-1 text-sm"
-            onClick={() => setShowDeleteModal(true)}
-          >
-            Delete
-          </Button>
-        </div>
       </div>
 
       <Modal
@@ -112,7 +91,7 @@ export const FactionCard = ({ faction, onDelete }) => {
           </Button>
         </div>
       </Modal>
-    </>
+    </Link>
   );
 };
 
